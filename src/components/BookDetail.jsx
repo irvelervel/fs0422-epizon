@@ -1,6 +1,11 @@
 import { Col, Row, Button } from 'react-bootstrap'
+import { useDispatch } from 'react-redux'
 
 const BookDetail = ({ bookSelected }) => {
+  const dispatch = useDispatch()
+  // dispatch will allow this component to dispatch actions!
+  // in order to make them reach the reducer(s)
+
   return (
     <div className="mt-3 mb-4 mb-lg-0">
       {bookSelected ? (
@@ -29,7 +34,15 @@ const BookDetail = ({ bookSelected }) => {
                 <span className="font-weight-bold">Price:</span>&nbsp;
                 {bookSelected.price}$
               </p>
-              <Button color="primary" onClick={() => {}}>
+              <Button
+                color="primary"
+                onClick={() => {
+                  dispatch({
+                    type: 'ADD_TO_CART',
+                    payload: bookSelected,
+                  })
+                }}
+              >
                 ADD TO CART
               </Button>
             </Col>

@@ -29,6 +29,40 @@ const mainReducer = (state = initialState, action) => {
     // multiple cases are going to be happening here, with time!
     // but now, just for starting, let's write just the default
     // so we can conclude this function and finish our store/index.js
+
+    case 'ADD_TO_CART':
+      // what are we going to do in every case?
+      // we're going to return the new state of the app
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          content: [...state.cart.content, action.payload],
+          // this is a non-mutating way of adding an element
+          // to an array. remember: NEVER mutate state in a reducer function,
+          // that brakes the immutability patter of redux
+          // check doesitmutate.xyz if you want to see which methods
+          // are safe to use in a reducer function
+        },
+      }
+    // state.cart.content.push() <-- VERY FORBIDDEN, MUTATES YOUR ARGUMENTS
+
+    case 'REMOVE_FROM_CART':
+      return {
+        ...state,
+        cart: {
+          ...state.cart,
+          content: state.cart.content.filter((book, i) => {
+            return i !== action.payload
+            // this creates a new array with all the elements aparts from one
+            // the one with its index === the index you want to remove!
+          }),
+        },
+      }
+
+    // things you can use: spread operator, slice, filter, concat etc.
+    // things you CANNOT use: push, splice, etc.
+
     default:
       return state
     // in the case of an unknown action.type, don't break anything!

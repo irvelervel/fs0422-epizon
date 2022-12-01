@@ -9,3 +9,4 @@ const store = configureStore({
 export default store
 
 // now the store is ready! let's INJECT IT into our REACT APP!
+// we do it in the src/index.js file
